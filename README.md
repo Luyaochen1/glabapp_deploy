@@ -1,12 +1,21 @@
-# Steps to implement a redis-celery job queue
+# Steps to implement a redis-celery-flask job queue system
 
-This is a step-by-step sample of implementing a python job queue with redis and celery. 
+This is a step-by-step sample of implementing a python job queue with redis, celery and Flask ( using a CTA core detction program by Giancardo Lab ). 
+
+## introduciton
+
+The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.
+
+There are three Docker containers to build:
+
+-- Flask :  Provide front end web application  
+
 
 ## Prerequisite 
 
 ### 1. Docker server
 
-The implementation is Docker-based. This document will cover the step-by-step installation for Celery, while the REDIS comes from a prebuilt docker image.  However, running on the host is also possible.  Please refer to the installation guide for RADIS (https://radis.readthedocs.io/en/latest/)
+The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.   
 
 ### 2. The Applicaiton container
 

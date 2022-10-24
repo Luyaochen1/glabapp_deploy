@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- design inspired from  https://bootiful.org/ -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Giancardo Lab Web Apps</title>
+
+    <link href="static/common.css" rel="stylesheet" >
+
+    <style type="text/css">
+        .highlight-hero {
+            background: linear-gradient(360deg,#b7edfa 24%,transparent 0) !important;
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script> 
+      $(function(){
+      $("#header").load("glabapps_header.html"); 
+      $("#footer").load("glabapps_footer.html"); 
+      });
+    </script> 
+
+
+  </head>
+  <body >
+
+
+<div id="header"></div>
+
+<!--
+Body of the page starts
+-->
+
+    <div class="container" style="max-width: 1140px;">
+        <div id="hero"  class="bg-white text-dark flex-center">
+            <div class="container">
+                <div class="row">
+                    <div class="my-5 col-12 col-md-10 col-lg-9 mx-auto">
+                        <div class="text-center mb-5">
+                            <h1 class="mb-4 mx-auto display-3 fw-bold">
+                                <span role="region" aria-label="Giancardo Lab Web Apps" class="highlight-hero">Disclaimer</span>
+                            </h1>
+                            
+                                <p role="region" aria-label="disclaimer" > 
+                                    <h2>Liability</h2> 
+                                    For documents and software available from this website, UTHealth does not warrant or assume any legal liability or responsibility for the accuracy, completeness, or usefulness of any information, apparatus, product, or process disclosed.
+                                    <br /><br />
+                                    <h2>Pop-Up Advertisements</h2>
+                                    When visiting our website, your Web browser may produce pop-up advertisements. These advertisements were most likely produced by other websites you visited or by third party software installed on your computer. UTHealth does not endorse or recommend products or services for which you may view a pop-up advertisement on your computer screen while visiting our site.
+                                    <br /><br />
+
+                                    <h2>Data Submitted</h2> 
+                                    If website users plan to submit data, it is their responsibility to ensure that they have the legal authority to submit such data and they are compliant to the relevant HIPAA, GDPR and other relevant laws, regulations, and institutional policies. UTHealth does not warrant or assume any legal liability or responsibility for the content submitted by the user.
+                                    <br /><br />
+
+                                    <h2>Medical Information and Advice Disclaimer</h2>
+                                    It is not the intention to provide specific medical advice but rather to provide users with examples of the technology developed at UTHealth. Specific medical advice will not be provided, and UTHealth urges you to consult with a qualified physician for diagnosis and for answers to your personal questions.
+                                    <br /><br />
+
+                                    <h2>Privacy Policy</h2>
+                                    UTHealth's Website Privacy and Security Policy can be found <a href="https://www.uth.edu/index/privacy.htm">here</a>.
+                                    <br /><br />
+                                    
+                                    <h2>Guidelines for Submitting Large Requests</h2>
+                                    Users intending to send numerous queries should contact  <a href="https://sbmi.uth.edu/giancalab/"> Luca Giancardo</a>.
+                                </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--
+Body of the page ends
+-->
+
+<div id="footer"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

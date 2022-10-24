@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- design inspired from  https://bootiful.org/ -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Giancardo Lab Web Apps</title>
+
+    <link href="static/common.css" rel="stylesheet" >
+
+    <style type="text/css">
+        .highlight-hero {
+            background: linear-gradient(360deg,#b7edfa 24%,transparent 0) !important;
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script> 
+      $(function(){
+      $("#header").load("glabapps_header.html"); 
+      $("#footer").load("glabapps_footer.html"); 
+      });
+    </script> 
+
+
+  </head>
+  <body >
+
+
+<div id="header"></div>
+
+<!--
+Body of the page starts
+-->
+
+<div  class="flex-center flex-column pt-3 pb-5">
+  <div  class="flex-center flex-column py-3">
+      <div class="container">
+          <div class="row justify-content-center align-items-center">
+              <div class="col-12 col-md-9 d-flex flex-column mb-3 order-md-2">
+                  <h2 class="mb-4 display-5">
+                      <span role="region" aria-label="OCT-A for Acute Stroke" class="d-block fw-800">OCT-A for Acute Stroke</span>
+                  </h2>
+                  <div>
+                      <span>
+                          <p role="region" aria-label="webapp description">This Webapp allows to estimate the likelihood of acute stroke using the as input vessel density variables from OCT-A. It has been developed at the Giancardo lab at UTHealth as part of an effort to develop systems and data for identifying acute strokes using retina imaging. This would enable the deployment of life-saving drugs in situations where brain scans are typically not available such as ambulances or even space missions.</p>
+                          <h2 class="mb-4 display-7">Input</h2>
+                          <p role="region" aria-label="input">It requires 10 variables per retina estimated with an Optovue Avanti OCT-A Camera and the iVue software. OCT-A en-face images with superficial (identified as L1) and deep (identified as L2) layers needs to be used. More information are available in this publication: S. Pachade, I. Coronado, R. Abdelkhaleq, J. Yan, S. Salazar-Marioni, A. Jagolino, M. Bahrainian, R. Channa, S. Sheth, L. Giancardo. "Synthetic OCT-A Blood Vessel Maps Using Fundus Photos and Generative Adversarial Networks" (submitted) </p>
+                        </span>
+                  </div>
+              </div>
+              <div class="col-12 col-md-3 d-flex flex-column">
+                  <img src="imgs/octa-stroke.jpg" loading="lazy" width="80%" height="auto" alt="sample pic">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<iframe src="https://glabapps.uth.edu/octa-stroke" title="octa-stroke-app" style="width: 100%;height: 1200px;"></iframe>
+
+<div class="container">
+<h2 class="display-7">Acknowledgements </h2>
+<p role="region" aria-label="input">This work is supported by the Translational Research Institute for Space Health through NASA Cooperative Agreement NNX16AO69A. It has been developed by the <a href="https://sbmi.uth.edu/giancalab/">Giancardo Lab</a> in collaboration with the <a href="https://sbmi.uth.edu/safe/">Center for Secure Artificial
+  intelligence For hEalthcare (SAFE)</a>  and <a href="https://med.uth.edu/neurology/faculty/sunil-a-sheth-md/">Sheth Lab</a></p>
+</div>
+
+<!--
+Body of the page ends
+-->
+
+<div id="footer"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<title>CTA DETECTION</title>
+
+<script>
+function showDiv() {
+  document.getElementById('submit').style.display = "none";
+  document.getElementById('loadingGif').style.display = "block";
+
+}
+</script>
+
+<h2>Select a NIfTI efile to process</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+{% if filename %}
+        <h3>    2D Output </h3>
+	<div>
+       		<img src="{{ url_for('display_image', filename=filename) }}" style="width: 100%">
+	</div>
+   
+{% endif %}
+
+
+{% if session_id  %}
+        <h3>   3D Output </h3>
+        <p>   
+	   <a href="http://129.106.31.45:7790/papaya/index_{{session_id}}.html"  target="_blank" rel="noopener noreferrer" > Click here for 3D Output </a>	
+
+        </p> 
+
+{% endif %}
+
+<div id="loadingGif" style="display:none"><img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"></div>
+
+<form method="post" action="/" enctype="multipart/form-data" >
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" id="submit" value="Submit" onclick="showDiv()" >
+	</p>
+</form>

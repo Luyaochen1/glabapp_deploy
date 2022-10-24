@@ -1,0 +1,54 @@
+<!doctype html>
+<title>CTA DETECTION</title>
+
+<script>
+function showDiv() {
+  document.getElementById('submit').style.display = "none";
+  document.getElementById('loadingGif').style.display = "block";
+
+}
+</script>
+
+<h2>Select NIfTI file(s) to process</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+{% if filename %}
+        <h3>    2D Output </h3>
+	<div>
+       		<img src="{{ url_for('display_image', filename=filename) }}" style="width: 100%">
+	</div>
+   
+{% endif %}
+
+
+{% if session_id  %}
+        <h3>  Your submitted job is in progressing. Please click the below link to check the status : </h3>
+        <p>   
+	   <a href="status/{{session_id}}"  target="_blank" rel="noopener noreferrer" > {{session_id}} </a>	
+
+        </p> 
+
+{% endif %}
+
+<div id="loadingGif" style="display:none"><img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"></div>
+
+<form method="post" action="" enctype="multipart/form-data" >
+    <dl>  
+	<p> Enter your email address: <input type="email" name="email" size="30"> </p>
+  	 <p>  <input type="file" name="files[]" multiple="true" autocomplete="off" required> </p>
+	</p>
+    </dl>
+    <p>
+		<input type="submit" id="submit" value="Submit" onclick="showDiv()" >
+    </p>
+</form>

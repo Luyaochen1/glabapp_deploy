@@ -1,0 +1,109 @@
+sbbdmaplp007
+cd /data/lchen23
+
+sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --loglevel warning
+
+sudo docker inspect glabapps_redis_test
+
+ "IPAddress": "172.17.0.8",
+
+
+sudo docker run -it -d -p7606:5555 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_celery_test  python:3.8.15 bash
+
+sudo docker inspect glabapps_celery_test
+
+"IPAddress": "172.17.0.7",
+
+
+sudo docker exec -it glabapps_celery_test bash
+apt update -y && apt install nano -y
+
+cd /glabapp_deploy/cta-core-detection-cpu
+
+pip install -r requirements.txt
+
+
+pip install -r celery_req.txt
+
+modify predict_config.py 
+
+
+test local worker
+
+import predict_worker
+predict_worker.process_images('test1','luyao.chen@uth.tmc.edu')
+
+
+
+celery  -A predict_worker.client worker  -D --loglevel=INFO --concurrency=2
+
+nohup flower -A predict_celery.client flower --port=5555 &
+
+
+sudo docker run -it -d -p7605:8080 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_flask_test  python:3.8.15 bash
+
+test celery worker
+
+
+
+sudo docker inspect glabapps_flask_test
+ "IPAddress": "172.17.0.9",
+
+
+sudo docker exec -it glabapps_flash_test bash
+apt update -y && apt install nano nginx -y
+
+cd /glabapp_deploy/flask
+
+pip install -r flask_req.txt 
+
+
+chown www-data:www-data flask -R
+
+chown www-data:www-data /glabapp_deploy/papaya/data -R
+
+cd /glabapp_deploy/flask/cta
+mkdir /var/log/uwsgi
+
+
+modify /glabapp_deploy/flask/cta/predict_config.py
+
+./uwsgi_start.sh 
+
+
+cp /glabapp_deploy/nginx/cta-detect /etc/nginx/sites-enabled/.
+cp /glabapp_deploy/nginx/nginx.conf /etc/nginx/.
+rm /etc/nginx/sites-enabled/default
+
+nginx -t
+
+service nginx start 
+
+
+
+
+/glabapp_deploy/flask/cta
+
+
+
+
+
+
+
+
+
+sudo docker run -it -d -p7606:8080 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_celery_test  tensorflow/tensorflow:latest bash
+
+sudo docker exec -it glabapps_celery_test bash
+
+apt update -y && apt install git nano -y
+
+
+
+cd /cta-core-detection-cpu
+
+python3 -m pip install -r requirements.txt
+
+
+
+python3 -m pip install -r celery_req.txt

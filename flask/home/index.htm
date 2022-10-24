@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- design inspired from  https://bootiful.org/ -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Giancardo Lab Web Apps</title>
+
+    <link href="static/common.css" rel="stylesheet" >
+
+    <style type="text/css">
+        .highlight-hero {
+            background: linear-gradient(360deg,#b7edfa 24%,transparent 0) !important;
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script> 
+      $(function(){
+      $("#header").load("glabapps_header.html"); 
+      $("#footer").load("glabapps_footer.html"); 
+      });
+    </script> 
+
+
+  </head>
+  <body >
+
+
+<div id="header"></div>
+
+<!--
+Body of the page starts
+-->
+
+    <div class="container" style="max-width: 1140px;">
+        <div id="hero"  class="bg-white text-dark flex-center">
+            <div class="container">
+                <div class="row">
+                    <div class="my-5 col-12 col-md-10 col-lg-9 mx-auto">
+                        <div class="text-center mb-5">
+                            <h1 class="mb-4 mx-auto display-3 fw-bold">
+                                <span role="region" aria-label="Giancardo Lab Web Apps" class="highlight-hero">Giancardo Lab Web Apps</span>
+                            </h1>
+                            <p class="mx-auto lead text-lg-nice">
+                                <span role="region" aria-label="live resource hosted on UTHealth servers to showcase our research" class="d-block"> live resource hosted on UTHealth servers to showcase our research </span>
+                                <span role="region" aria-label="and provide tools for the research community" class="d-block"> and provide tools for the research community </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="why"  class="flex-center flex-column pt-3 pb-5">
+            <div  class="flex-center flex-column py-3">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
+                            <h2 class="mb-4 display-5">
+                                <span role="region" aria-label="CTA Hypoperfusion Analysis" class="d-block fw-800">CTA Hypoperfusion Analysis</span>
+                            </h2>
+                            <div>
+                                <span>
+                                    <p role="region" aria-label="Upload your CT angiography brain to automatically compute the hypoperfused area relevant from stroke care">Upload your CT angiography brain to automatically compute the hypoperfused area relevant from stroke care.</p>
+                                </span>
+                            </div>
+                            <a role="region" arua-label="run cta" class="d-flex flex-row justify-content-start align-items-center" href="/cta/">Click here to run<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="22" height="22" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-7 d-flex flex-column">
+                            <img src="imgs/cta-detection.jpg"  aria-label="cta detection sample" loading="lazy" width="80%" height="auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="flex-center flex-column py-3">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12 col-md-5 d-flex flex-column mb-3 ">
+                            <h2 role="region" aria-label="OCT-A for Acute Stroke" class="mb-4 display-5 fw-800">OCT-A for Acute Stroke</h2>
+                            <div>
+                                <span>
+                                    <p role="region" aria-label="Estimate OCTA"  >Estimate the likelihood of having an acute stroke using retinal macular vessel density features from OCT-A images.</p>
+                                    <a role="region" aria-label="Go OCTA" class="d-flex flex-row justify-content-start align-items-center" href="/octa_stroke_home.html">Click here to run<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="22" height="22" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-7 d-flex flex-column">
+                            <div class="text-lg-end">
+                                <img src="imgs/octa-stroke.jpg"  aria-label="octa sample" loading="lazy" width="80%" height="auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+<!--
+Body of the page ends
+-->
+
+<div id="footer"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

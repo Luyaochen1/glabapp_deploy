@@ -1,0 +1,153 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>CTA DETECTION RESULT</title>
+
+    <!-- design inspired from  https://bootiful.org/ -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Giancardo Lab Web Apps</title>
+
+    <link href="/static/common.css" rel="stylesheet" >
+
+    <style type="text/css">
+        .highlight-hero {
+            background: linear-gradient(360deg,#b7edfa 24%,transparent 0) !important;
+        }
+    </style>
+
+<link href="/static/common.css" rel="stylesheet" >
+
+
+<script>
+function showDiv() {
+  document.getElementById('submit').style.display = "none";
+  document.getElementById('loadingGif').style.display = "block";
+
+}
+
+function getCookie(cName) {
+           const name = cName + "=";
+           const cDecoded = decodeURIComponent(document.cookie); //to be careful
+           const cArr = cDecoded .split('; ');
+           let res;
+           cArr.forEach(val => {
+           if (val.indexOf(name) === 0) res = val.substring(name.length);
+           })
+          return res;
+}
+
+function validate() {
+session_id_h = getCookie("{{session_id}}");
+
+var valid = 1
+if ( session_id_h) {
+    var status_url = "/cta/check_hash" 
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", status_url, false ); // false for synchronous request
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify({ "session_id": "{{session_id}}", "session_id_h": session_id_h }));
+    statusSummary=JSON.parse(xmlHttp.responseText);
+    if (statusSummary.result != "passed") {
+       valid = 0;
+    } 
+} else  {
+    valid = 0;
+   
+};
+
+if (valid == 1) {
+   document.getElementById("results_invalid").parentNode.removeChild(document.getElementById("results_invalid"));
+} else {
+   document.getElementById("results_valid").parentNode.removeChild(document.getElementById("results_valid"));
+}
+
+}
+
+</script>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+
+    <script>
+      $(function(){
+      $("#header").load("/glabapps_header.html");
+      $("#footer").load("/glabapps_footer.html");
+      });
+    </script>
+
+
+
+
+
+</head>
+<body>
+<div id="header"></div>
+
+
+<div class="results" style="margin-left: 20px;" id = "results" >
+<div  class="results_invalid" id = "results_invalid">
+<h2>This CTA Detection Result is invalid to you. Please open it with the original browser you submit the job.</h2>
+</div>
+<div  class="results_valid" id = "results_valid">
+<h2 class="mb-2 mb-lg-0 fw-bold" >Your CTA Detection Result</h2>
+<p class="fs-small mb-4" >
+	{% with messages = get_flashed_messages() %}
+	  {% if messages_A %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+{% if filenames_2d %}
+        <h5 class="pb-2 mb-0" >    2D Output </h3>
+	<div>
+		{% for filename in filenames_2d %}
+       		<li> {{filename}} <br> <img src="{{ url_for('display_image',path=session_id, filename=filename) }} " aria-label="Result 2d Images" style="width: 100%"> </li>
+		{% endfor %}
+	</div>
+   
+{% endif %}
+
+{% if filenames_3d %}
+        <h5 class="pb-2 mb-0" >    3D Output </h3>
+        <div>
+		<h6 class="pb-2 mb-0" >  Download your 3D result here </h3>
+                {% for filename in filenames_3d %}
+                <li class="fs-small mb-4" > <a href="/papaya/data/{{session_id}}/{{filename}}" > {{filename}} </a> &nbsp; &nbsp;   Preview  <a href="/papaya/data/{{session_id}}/index_{{filename}}.html" target="_blank" rel="noopener noreferrer" > here </a>  </li>
+                {% endfor %}
+
+        </div>
+{% endif %}
+
+
+{% if not finished  %}
+        <h3>  Your submitted job is in progressing. Please refresh this patge to check the status</h3>
+{% endif %}
+
+{% if finished  %}
+        <h3>  Your submitted job is done. Please download your result in 24 hours</h3>
+{% endif %}
+</div>
+</div>
+<script> 
+ validate()
+</script>
+
+<div id="footer"></div>
+
+</body>
+</html>
+

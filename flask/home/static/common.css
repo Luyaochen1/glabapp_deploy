@@ -1,0 +1,57 @@
+#utilityNav {
+    background: #002856;
+    border-bottom: 3px solid #fff;
+    margin-bottom: 0;
+    padding: 0;
+    color: #0a0a0a;
+}
+#utilityNav .toptier {margin-bottom: 0;}
+#utilityNav .toptier li {float: left;}
+#utilityNav {background-color: #44697C; margin-bottom: 0;}
+#utilityNav .toptier li, #utilityNav .toptier li:not(.has-form) a:not(.button) {display: inline-block; height: auto; line-height: 2.8rem; font-size: 0.7rem; color: #fff;padding: 0 0.5rem 0 0.5rem;}
+#utilityNav .toptier li:not(.has-form) a:hover:not(.button) {background: #bd4f19;}
+#utilityNav ul li:hover:not(.has-form) > a {background-color: #bd4f19;}
+#utilityNav .toptier li:not(.has-form) a:hover {background: #165568;}
+#utilityNav > ul > li:hover, #utilityNav .toptier li:hover {background: #44697c;}
+#utilityNav ul {margin-left:0px;}
+
+
+#utilityNavFoot {
+    background: #002856;
+    border-bottom: 3px solid #fff;
+    margin-bottom: 0;
+    padding: 0;
+    color: #0a0a0a;
+}
+#utilityNavFoot .toptier {margin-bottom: 0;}
+#utilityNavFoot .toptier li {float: left;}
+#utilityNavFoot {background-color: #44697C; margin-bottom: 0;}
+#utilityNavFoot .toptier li, #utilityNavFoot .toptier li:not(.has-form) a:not(.button) {display: inline-block; height: auto; line-height: 2.8rem; font-size: 0.7rem; color: #fff;padding: 0 0.5rem 0 0.5rem;}
+#utilityNavFoot .toptier li:not(.has-form) a:hover:not(.button) {background: #bd4f19;}
+#utilityNavFoot ul li:hover:not(.has-form) > a {background-color: #bd4f19;}
+#utilityNavFoot .toptier li:not(.has-form) a:hover {background: #165568;}
+#utilityNavFoot > ul > li:hover, #utilityNavFoot .toptier li:hover {background: #44697c;}
+#utilityNavFoot ul {margin-left:0px;}
+
+
+.contain-to-grid {background-color:#fff !important;}
+#btnG {margin: 0; height: 1.9em; padding: 0px 10px;}
+#q {width: 200px;height: 2em;margin: 9px 4px 0 0;}
+
+.footernav-links-small p {
+    font-size: 0.7rem;
+    text-align: center;
+    color: #fff;
+}
+.footernav-links-small a {
+    color: #fff;
+    margin-right: .25rem;
+    padding-right: .25rem;
+}
+#footer .footernav-links-small a:hover,
+#footer .footernav-links-small a:focus {
+    text-decoration: underline;
+}
+.footernav-links-small a.pipe {
+    border-right: 1px solid #fff;
+}

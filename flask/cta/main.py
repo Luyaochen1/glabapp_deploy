@@ -1,3 +1,8 @@
+#######################################
+#  This is the main funciton for flask
+#
+######################################
+
 import os,re
 from app import app
 import urllib.request
@@ -154,6 +159,7 @@ def upload_image():
 	
 	email =  request.form.get('email')
 
+# call to insert job request to celery queue	
 	r = process_images.delay(session_id,email)
 
 	print('Submitted async {}: {}',r, file_names)

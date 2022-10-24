@@ -8,8 +8,37 @@ The implementation is Docker-based. This document will cover the step-by-step in
 
 There are three Docker containers to build:
 
--- Flask :  Provide front end web application  
+### Redis :
 
+Redis is an in-memory data structure store. In our cases, it acts as job queue database: the Flask application will create a task and put it into the Redis job queue. And then, the Celery application will pick up the job from job queue and call a predefined program to run the job.
+
+
+### Flask : 
+
+A python flask application to provide front end web application. It contains the blow funcitons
+- A GUI for the user to upload those files to be processed
+- Genereate an session ID and create an input folder with this session ID 
+- save uploaded files to the input folder  
+- insert the job to the job queu ( with input folder and email address as parameter)
+- check the status of job processing and report error message
+- Genereate the papaya web display for the output query
+
+### Celery : 
+
+A python celery application to provide the backend function to process the request. It contains the blow funcitons
+- Pickup the job and get job parameter (input folder and email address) 
+- Get files to be processed from the input folder 
+- Call the core funciton to pcoess the input files
+- Save output to the output folder
+- Send an email when job finishs
+- Allow user to check job the status 
+
+A high-level diagram is like this:
+
+      <picture>
+      <img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram.JPG">
+
+      </picture>   
 
 ## Prerequisite 
 

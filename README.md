@@ -23,7 +23,7 @@ Redis is an in-memory data structure store. In our cases, it acts as job queue d
 ### Flask : 
 
 A python flask application to provide front end web application. It contains the blow funcitons
-- A GUI for the user to upload those files to be processed
+- A GUI (Nginx+flask) for the user to upload those files to be processed
 - Genereate an session ID and create an input folder with this session ID 
 - save uploaded files to the input folder  
 - insert the job to the job queu ( with input folder and email address as parameter)
@@ -55,17 +55,47 @@ In the rest part of this documentation, we will assument that user alreay have t
 
 This documents assums the three containers we listed above is running on the same docker network and IP address was assigned dynamaciily.  For a production deployment, the fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
 
-Also, we assumene the firewall will allow the user to access the docker port we assigned. Please check witt IT for the firewall rules.
+The Flask will use port 8080 for its Nginx application. In our sample, the port will be mapped to poert 7605 of the server.
+
+The Celery will use port 5555 for its monitoring program. In our sample, the port will be mapped to poert 7606 of the server.
+
+The Redis will use port 7379 for its database access. This port is not accessable from external.
+
+Also, we assumene the firewall will allow the user to access the port 7605 and 7606 we assigned. Please check witt IT for the firewall rules.
+
+
+
+## Create docler conainers
+
+### clone source code from Github
+
+```
+cd  ~
+sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --loglevel warning
+
+```
 
 ## create the redis container
 
 ```
-
-docker run --name myredis -d redis redis-server --save 60 1 --loglevel warning
+sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --loglevel warning
 
 ```
+
+After we start up the redis container. We need to find out its ip address ( to be used for the further configuration) 
+
+Run 
+```
+sudo docker inspect glabapps_redis_test
+
+```
+and search for "IPAddress" in the outut.
+
+In our sample, we will use 172.17.0.8 as the internal IP address of Redis server.
+
+
  
-## Setup the Application container (Celery Container)
+## Setup the Celery container ( 
 
 All the below commands are required to run inside the docker container of the application.
 

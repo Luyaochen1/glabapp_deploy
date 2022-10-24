@@ -1,8 +1,8 @@
 # Steps to implement a redis-celery-flask job queue system
 
-This is a step-by-step sample of implementing a python job queue with redis, celery and Flask ( using a CTA core detction program by Giancardo Lab ). 
+This is a step-by-step guide of implementing a python job queue with redis, celery, and Flask ( using a CTA core detection program by Giancardo Lab ). 
 
-## introduciton
+## introduction
 
 The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.
 
@@ -17,27 +17,27 @@ There are three Docker containers to build:
 
 ### Redis :
 
-Redis is an in-memory data structure store. In our cases, it acts as job queue database: the Flask application will create a task and put it into the Redis job queue. And then, the Celery application will pick up the job from job queue and call a predefined program to run the job.
+Redis is an in-memory data structure store. In our cases, it acts as a job queue database: the Flask application will create a task and put it into the Redis job queue. And then, the Celery application will pick up the job from the job queue and call a predefined program to run the job.
 
 
 ### Flask : 
 
-A python flask application to provide front end web application. It contains the blow funcitons
+A python flask application to provide front-end web application. It contains the blow functions
 - A GUI (Nginx+flask) for the user to upload those files to be processed
-- Genereate an session ID and create an input folder with this session ID 
+- Generate an session ID and create an input folder with this session ID 
 - save uploaded files to the input folder  
-- insert the job to the job queu ( with input folder and email address as parameter)
-- check the status of job processing and report error message
-- Genereate the papaya web display for the output query
+- insert the job to the job queue ( with input folder and email address as  parameters)
+- check the status of job processing and report an error message
+- Generate the papaya web display for the output query
 
 ### Celery : 
 
-A python celery application to provide the backend function to process the request. It contains the blow funcitons
-- Pickup the job and get job parameter (input folder and email address) 
+A python celery application to provide the backend function to process the request. It contains the blow functions
+- Pickup the job and get the job parameters (input folder and email address) 
 - Get files to be processed from the input folder 
-- Call the core funciton to pcoess the input files
+- Call the core function to process the input files
 - Save output to the output folder
-- Send an email when job finishs
+- Send an email when job finishes
 - Allow user to check job the status 
 
 
@@ -49,28 +49,28 @@ Docker is the only software required to run the implementation. Please refer to 
 
 https://docs.docker.com/desktop/install/linux-install/
  
-In the rest part of this documentation, we will assument that user alreay have the sudo right to run the docker commnad.
+In the rest part of this documentation, we will assume that the user already has the sudo right to run the docker command.
  
 ### Docker network  
 
-This documents assums the three containers we listed above is running on the same docker network and IP address was assigned dynamaciily.  For a production deployment, the fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
+This document assums the three containers we listed above is running on the same docker network and IP address was assigned dynamically.  For a production deployment, the fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
 
-The Flask will use port 8080 for its Nginx application. In our sample, the port will be mapped to poert 7605 of the server.
+The Flask will use port 8080 for its Nginx application. In the sample, the port will be mapped to port 7605 of the server.
 
-The Celery will use port 5555 for its monitoring program. In our sample, the port will be mapped to poert 7606 of the server.
+The Celery will use port 5555 for its monitoring program. In the sample, the port will be mapped to port 7606 of the server.
 
-The Redis will use port 7379 for its database access. This port is not accessable from external.
+The Redis will use port 7379 for its database access. This port is not accessible from external.
 
-Also, we assumene the firewall will allow the user to access the port 7605 and 7606 we assigned. Please check witt IT for the firewall rules.
+Also, we assume the firewall will allow the user to access port 7605 and 7606 we assigned. Please check with IT for the firewall rules.
 
 
 
-## Create Docker conainers
+## Create Docker containers
 
 ### clone source code from Github
 
 ```
-cd  ~  # any folder that user has the full access
+cd  ~  # any folder the user has the full access
 git clone https://github.com/Luyaochen1/glabapp_deploy.git
 ```
 
@@ -82,41 +82,41 @@ sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --l
 
 ```
 
-After we start up the redis container. We need to find out its ip address ( to be used for the further configuration) 
+After we start up the redis container. We need to find out its IP address ( to be used for further configuration) 
 
 Run 
 ```
 sudo docker inspect glabapps_redis_test
 
 ```
-and search for "IPAddress" in the outut.
+and search for "IPAddress" in the output.
 
-In our sample, we will use 172.17.0.7 as the internal IP address of Redis server.
+In our sample, we will use 172.17.0.7 as the internal IP address of the Redis server.
 
 
  
 ## Create the Celery container  
 
-Run the below command to create the celery container. The conainder is build based on a python 3.8.15 image.
+Run the below command to create the celery container. The container is built based on a python 3.8.15 image.
 ```
 cd   (your_working folder)
 sudo docker run -it -d -p7606:5555 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_celery_test  python:3.8.15 bash
 ```
 
-and run the below commnad to enter the celery container
+and run the below command to enter the celery container
 
 ```
 sudo docker exec -it glabapps_celery_test bash
 root@xxxxxxxx:/#
 ```
 
-and then, run the below linux commands to install the requirements
+and then, run the below Linux commands to install the requirements
 
 ```
 # install a text editor to change some setup later
 apt update -y && apt install nano -y
 
-# go to the home folder for celery applicaitin 
+# go to the home folder for celery application 
 cd /glabapp_deploy/cta-core-detection-cpu
 
 # install required python packages for CTA detections 
@@ -141,9 +141,9 @@ avg grad 1 tf.Tensor(-2.9693632e-05, shape=(), dtype=float32)
 root@92a9aa239f8e:/glabapp_deploy/cta-core-detection-cpu#
 ```
 
-To start the celery service, we need to check the configuration file and make sure the redis address point to the IP address of the redis container. And tht same time , update the base URL of the flask server with the actual docker server IP address. 
+To start the celery service, we need to check the configuration file and ensure the redis address point to the IP address of the redis container. And the same time, update the base URL of the flask server with the actual docker server IP address. 
 
-Also, to ensure the security, change the SECRET_KEY if required. 
+Also, to ensure security, change the SECRET_KEY if required. 
 
 The same setup will be used for all the other applications.
 
@@ -169,7 +169,7 @@ nohup flower -A predict_celery.client flower --port=5555 &
 exit
 ```
 
-by enter the url http://129.106.31.204:7606 , we can access the celery monitor tool.
+by entering the URL http://129.106.31.204:7606 , we can access the celery monitor tool.
 
 We will test the celery after creating the flask container
 
@@ -177,27 +177,27 @@ We will test the celery after creating the flask container
 
 ## Create the Flask container  
 
-Run the below command to create the flask container. The conainder is build based on a python 3.8.15 image.
+Run the below command to create the flask container. The container is built based on a python 3.8.15 image.
 ```
 cd   (your_working folder)
 sudo docker run -it -d -p7605:8080 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_flask_test  python:3.8.15 bash
 
 ```
 
-and run the below commnad to enter the celery container
+and run the below command to enter the flask container
 
 ```
 sudo docker exec -it glabapps_flask_test bash
 root@xxxxxxxx:/#
 ```
 
-and then, run the below linux commands to install the requirements
+and then, run the below Linux commands to install the requirements
 
 ```
-# enter the new created flask container
+# enter the newly created flask container
 sudo docker exec -it glabapps_flask_test bash
 
-#  install a editor and nginx program
+#  install an editor and nginx program
 apt update -y && apt install nano nginx -y
 
 # go to the base folder for flask
@@ -206,7 +206,7 @@ cd /glabapp_deploy/flask
 # install python packages
 pip install -r flask_req.txt 
 
-# change the owner of the some program that flask service can then update them
+# change the owner of programs so that flask service can then update them
 chown www-data:www-data /glabapp_deploy/flask -R
 chown www-data:www-data /glabapp_deploy/papaya/data -R
 
@@ -216,7 +216,7 @@ cd /glabapp_deploy/flask/cta
 # create a folder for logs
 mkdir /var/log/uwsgi
 
-# modfify the ip address configurations
+# modfify the IP address configurations
 nano /glabapp_deploy/flask/cta/predict_config.py
 
 #start the flask service
@@ -234,15 +234,15 @@ nginx -t
 service nginx start 
 
 ``` 
-Now, CTA Dection GUI can be accessed by url http://129.106.31.204:7605/cta/ ; we can aslo back to the celery monitor tool (http://129.106.31.204:7606 to check the job status).
+Now, CTA Detection GUI can be accessed by URL http://129.106.31.204:7605/cta/ ; we can also go back to the celery monitor tool (http://129.106.31.204:7606) to check the job status.
 
 
 
 ## Coding instruction 
 
-Please refer to each program for the coding instrucitons 
+Please refer to each program for the coding instructions 
 
-There is just a list of realted programs and highlights
+There is just a list of related programs and highlights
 
 ### Celery server 
 
@@ -251,29 +251,35 @@ There is just a list of realted programs and highlights
 predict_worker.py  defines the core function process_images(session_id,email)  to:
 - decide working folder as base_folder + session_id
 - for each file in the working folder, run the prediction program
-- send the email after job done
+- send the email after the job done
 
-process_images(session_id,email) has a funciton decorator @client.task. When starting the celery service, "-A predict_worker.client" parameter refers to the   @client.task function of predict_worker.py to process the job queue.  
+process_images(session_id,email) has a function decorator @client.task. When starting the celery service, "-A predict_worker.client" parameter refers to the   @client.task function of predict_worker.py to process the job queue.  
 
 #### /cta-core-detection-cpu/predict_celery.py
 
-predict_celery.py is a abstract function run the celery monitor service. It has the same function definatin, but actually it do nothing. Have this abstract functin is to avoid the system really do stomging when laoding the monitor program.
+predict_celery.py is an abstract function that runs the celery monitor service. It has the same function definition, but actually, it does nothing. Having this abstract function is to avoid the system do something when loading the monitor program.
 
 #### /cta-core-detection-cpu/predict_config.py
 
-This is the configuration file we discussed above to hold the radis server IP address, port and the security key.
+This is the configuration file we discussed above to hold the radis server IP address, port, and security key.
 
 
 ### Flask server 
 
 #### /glabapp_deploy/flask/cta/main.py
-This is the flask program to provide the GUI and API service. it use the below code to insert a job to redis job queue.
+This is the flask program to provide the GUI and API service. it uses the below code to insert a job into redis job queue.
 ```
 from predict_worker import process_images
 
 r = process_images.delay(session_id,email_address)
 ```
 
+#### /glabapp_deploy/flask/predict_worker.py
 
+predict_worker.py is an abstract function. Having this abstract function here is to simplify the coding: the flask program just need to know the interface to the job processor, not the function itself. 
+
+#### /glabapp_deploy/flask/predict_config.py
+
+This is the configuration file we discussed above to hold the radis server IP address, port, and security key: it shall be the same as the one on the celery server.
 
 

@@ -43,7 +43,7 @@ A python celery application to provide the backend function to process the reque
 
 ## Prerequisite 
 
-### 1. Docker server
+### Docker server
 
 Docker is the only software required to run the implementation. Please refer to the below link for the docker server installation.
 
@@ -65,18 +65,18 @@ Also, we assumene the firewall will allow the user to access the port 7605 and 7
 
 
 
-## Create docler conainers
+## Create Docker conainers
 
 ### clone source code from Github
 
 ```
-cd  ~
-sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --loglevel warning
-
+cd  ~  # any folder that user has the full access
+git clone https://github.com/Luyaochen1/glabapp_deploy.git
 ```
 
 ## create the redis container
 
+Run the below command to create the redis container
 ```
 sudo docker run --name glabapps_redis_test -d redis redis-server --save 60 1 --loglevel warning
 
@@ -91,13 +91,75 @@ sudo docker inspect glabapps_redis_test
 ```
 and search for "IPAddress" in the outut.
 
-In our sample, we will use 172.17.0.8 as the internal IP address of Redis server.
+In our sample, we will use 172.17.0.7 as the internal IP address of Redis server.
 
 
  
-## Setup the Celery container ( 
+## Create the Celery container  
+
+Run the below command to create the celery container. The conainder is build based on a python 3.8.15 image.
+```
+cd   (your_working folder)
+sudo docker run -it -d -p7606:5555 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_celery_test  python:3.8.15 bash
+```
+
+and run the below commnad to enter the celery container
+
+```
+sudo docker exec -it glabapps_celery_test bash
+root@xxxxxxxx:/#
+```
+
+and then, run the below linux commands to install the requirements
+
+```
+# install a text editor to change some setup later
+apt update -y && apt install nano -y
+
+# go to the home folder for celery applicaitin 
+cd /glabapp_deploy/cta-core-detection-cpu
+
+# install required python packages for CTA detections 
+pip install -r requirements.txt
+
+# install required python packages for Celery 
+pip install -r celery_req.txt
+
+```
+
+Now, we can try to run the original CTA detection program
+
+```
+python run.py
+......
+......
+avg grad 0 tf.Tensor(2.9693632e-05, shape=(), dtype=float32)
+avg grad 1 tf.Tensor(-2.9693632e-05, shape=(), dtype=float32)
+(1, 10, 23, 17, 24)
+4.8814295e-06
+->
+root@92a9aa239f8e:/glabapp_deploy/cta-core-detection-cpu#
+```
+
+To start the celery service, we need to check the configuration file and make sure the redis address point to the IP address of the redis container. And tht same time , the base URL of the flask server with the actual docker server IP address. Change the SECRET_KEY if required. The same setup will be used for all the other applications.
+
+```
+SECRET_KEY = 'change_it_immediately'
+CELERY_BROKER_URL = 'redis://172.17.0.7:6379/0'
+CELERY_RESULT_BACKEND = 'redis://172.17.0.7:6379/0'
+IMG_FOLDER = '/glabapp_deploy/papaya/data/'
+SITE_URL = 'http://129.106.31.204:7605'
+EMAIL_SENDER  = 'admin@cta.uth.tmc.edu'
+```
+
+
+
+
+
+
 
 All the below commands are required to run inside the docker container of the application.
+
 
 ### 1.Install prerequisites for celery 
 

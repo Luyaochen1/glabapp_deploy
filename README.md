@@ -6,6 +6,13 @@ This is a step-by-step sample of implementing a python job queue with redis, cel
 
 The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.
 
+A high-level diagram is like this:
+
+<picture>
+<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram.JPG">
+</picture>   
+
+
 There are three Docker containers to build:
 
 ### Redis :
@@ -33,11 +40,6 @@ A python celery application to provide the backend function to process the reque
 - Send an email when job finishs
 - Allow user to check job the status 
 
-A high-level diagram is like this:
-
-<picture>
-<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram.JPG">
-</picture>   
 
 ## Prerequisite 
 

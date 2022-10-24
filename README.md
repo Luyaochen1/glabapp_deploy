@@ -35,10 +35,9 @@ A python celery application to provide the backend function to process the reque
 
 A high-level diagram is like this:
 
-      <picture>
-      <img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram.JPG">
-
-      </picture>   
+<picture>
+<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram.JPG">
+</picture>   
 
 ## Prerequisite 
 

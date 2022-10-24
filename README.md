@@ -141,7 +141,11 @@ avg grad 1 tf.Tensor(-2.9693632e-05, shape=(), dtype=float32)
 root@92a9aa239f8e:/glabapp_deploy/cta-core-detection-cpu#
 ```
 
-To start the celery service, we need to check the configuration file and make sure the redis address point to the IP address of the redis container. And tht same time , the base URL of the flask server with the actual docker server IP address. Change the SECRET_KEY if required. The same setup will be used for all the other applications.
+To start the celery service, we need to check the configuration file and make sure the redis address point to the IP address of the redis container. And tht same time , update the base URL of the flask server with the actual docker server IP address. 
+
+Also, to ensure the security, change the SECRET_KEY if required. 
+
+The same setup will be used for all the other applications.
 
 ```
 SECRET_KEY = 'change_it_immediately'
@@ -152,14 +156,85 @@ SITE_URL = 'http://129.106.31.204:7605'
 EMAIL_SENDER  = 'admin@cta.uth.tmc.edu'
 ```
 
+The next is to start the celery server and monitor
+
+```
+# start a celery server
+celery  -A predict_worker.client worker  -D --loglevel=INFO --concurrency=2
+
+# start a job monitor  
+nohup flower -A predict_celery.client flower --port=5555 &
+
+# exist the celery docker and go to the next step
+exit
+```
+
+by enter the url http://129.106.31.204:7706 , we can access the celery monitor tool.
+
+We will test the celery after creating the flask container
 
 
 
+## Create the Flask container  
 
+Run the below command to create the flask container. The conainder is build based on a python 3.8.15 image.
+```
+cd   (your_working folder)
+sudo docker run -it -d -p7605:8080 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_flask_test  python:3.8.15 bash
 
+```
 
-All the below commands are required to run inside the docker container of the application.
+and run the below commnad to enter the celery container
 
+```
+sudo docker exec -it glabapps_flask_test bash
+root@xxxxxxxx:/#
+```
+
+and then, run the below linux commands to install the requirements
+
+```
+# enter the new created flask container
+sudo docker exec -it glabapps_flask_test bash
+
+#  install a editor and nginx program
+apt update -y && apt install nano nginx -y
+
+# go to the base folder for flask
+cd /glabapp_deploy/flask
+
+# install python packages
+pip install -r flask_req.txt 
+
+# change the owner of the some program that flask service can then update them
+chown www-data:www-data /glabapp_deploy/flask -R
+chown www-data:www-data /glabapp_deploy/papaya/data -R
+
+# go to the flask program folder
+cd /glabapp_deploy/flask/cta
+
+# create a folder for logs
+mkdir /var/log/uwsgi
+
+# modfify the ip address configurations
+nano /glabapp_deploy/flask/cta/predict_config.py
+
+#start the flask service
+./uwsgi_start.sh 
+
+# copy the ngxin config files
+cp /glabapp_deploy/nginx/cta-detect /etc/nginx/sites-enabled/.
+cp /glabapp_deploy/nginx/nginx.conf /etc/nginx/.
+rm /etc/nginx/sites-enabled/default
+
+# test nginx setup
+nginx -t
+
+#run nginx as a service
+service nginx start 
+
+``` 
+Now, CTA Dection GUI can be accessed by url http://129.106.31.204:7605/cta/ , we can access the celery monitor tool.
 
 ### 1.Install prerequisites for celery 
 

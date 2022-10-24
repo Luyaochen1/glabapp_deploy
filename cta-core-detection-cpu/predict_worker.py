@@ -1,3 +1,9 @@
+#####################################
+# This program defines the core function 
+# to process a job in the queue
+#
+######################################
+
 import os
 from celery import Celery
 import time
@@ -5,6 +11,7 @@ import predict_config
 
 from flask import Flask
 
+# celery will use app.config to pass the redis server setup
 app = Flask(__name__)
 app.config.from_object("predict_config")
 
@@ -20,12 +27,11 @@ from email.mime.text import MIMEText
 import smtplib
 
 import sys
-
-# sys.path.insert(0, './cta-core-detection')
-
+ 
 # not use GPU for testing
 #import gpu_configuration 
 
+# define the runing parameters
 
 img_folder = app.config['IMG_FOLDER']
 site_url  = app.config['SITE_URL']
@@ -34,6 +40,7 @@ email_sender = app.config['EMAIL_SENDER']
 
 import inference as inf # load main library
 
+# function to predict one file
 def initLoadAndPred(input_file):
     print('prcoess start - {} '.format (input_file) )
     global corePred
@@ -85,7 +92,7 @@ def send_email_alert ( email, sessoion_id):
 client = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 client.conf.update(app.config)
 
-
+# celery decorator - to tell celery service that  process_images is used to handle the quest send to "client" defined by app.config['CELERY_BROKER_URL']
 @client.task
 def process_images(session_id,email):
     file_input_path = img_folder+session_id

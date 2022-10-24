@@ -1,3 +1,6 @@
+# this program used to tell celery monitor about the job define. 
+# it is a dummy function, no executable feature is rueiqred. 
+
 import os
 from celery import Celery
 import time

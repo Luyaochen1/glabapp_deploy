@@ -43,19 +43,17 @@ A high-level diagram is like this:
 
 ### 1. Docker server
 
-The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.   
+Docker is the only software required to run the implementation. Please refer to the below link for the docker server installation.
 
-### 2. The Applicaiton container
+https://docs.docker.com/desktop/install/linux-install/
+ 
+In the rest part of this documentation, we will assument that user alreay have the sudo right to run the docker commnad.
+ 
+### Docker network  
 
-This guide is assuming that the application container is already built ( and GPU is enabled if required) and we can run the algorithm within the container ( we will call it prediction in the later text). 
+This documents assums the three containers we listed above is running on the same docker network and IP address was assigned dynamaciily.  For a production deployment, the fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
 
-Python >= 3.7 is recommnaded 
-
-### 3. Docker network  
-
-This guide is assuming that the application container and redis container run on the same docker network. The fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
-
-In this sample, we are running redis and celery server in a docker network - 10.100.0.1/24. The redis server has a fixed IP address - 10.100.0.5 
+Also, we assumene the firewall will allow the user to access the docker port we assigned. Please check witt IT for the firewall rules.
 
 ## create the redis container
 

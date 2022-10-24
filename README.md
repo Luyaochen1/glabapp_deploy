@@ -265,3 +265,15 @@ This is the configuration file we discussed above to hold the radis server IP ad
 
 
 ### Flask server 
+
+#### /glabapp_deploy/flask/cta/main.py
+This is the flask program to provide the GUI and API service. it use the below code to insert a job to redis job queue.
+```
+from predict_worker import process_images
+
+r = process_images.delay(session_id,email_address)
+```
+
+
+
+

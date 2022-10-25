@@ -1,6 +1,7 @@
 server {
     listen 8080;
-    server_name         glabapps.uth.edu;
+    server_name         glabapps-demo.uth.edu;
+#    To enable SSL certs     
 #    ssl_certificate     /flask/ssl/glabapps_uth_edu_2022.cer;
 #    ssl_certificate_key /flask/ssl/glabapps.uth.edu_2022.key;
 #    ssl_protocols       TLSv1.2 TLSv1.3;
@@ -15,23 +16,25 @@ server {
     proxy_send_timeout 300;
 
 # recommanded by Security Review
-
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
     add_header X-XSS-Protection "1; mode=block";
 #    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
     add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://glabapps.uth.edu https://code.jquery.com  https://cdn.jsdelivr.net;" always;
     add_header X-Content-Type-Options "nosniff";
 
+# define a home page
     location / {
         root  /glabapp_deploy/flask/home/;
         index index.html index.htm index.html;
     }
 
+# redirect cta detect GUI to flask
     location  /cta/ {
         include uwsgi_params;
         uwsgi_pass unix:/glabapp_deploy/flask/cta/cta-detect.sock;
     }
-
+    
+# redirect papaya viewer
     location /papaya/ {
         alias  /glabapp_deploy/papaya/;
         index index.html index.htm;

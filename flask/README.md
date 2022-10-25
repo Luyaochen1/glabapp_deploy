@@ -1,23 +1,16 @@
-# glab-apps-gui
-A production collection for glabapps.uth.edu
+Please see setup instruciont aobut installing the Flask service
 
-# branch for flask / nginx 
-code located in flask container:
-/app
-
-# Start ( see  branch dockercompose):
-base image : luca_flask:20220422
 
 # start up app/service:
 
-cd /app/cta
+cd (where the source code located)/flask/cta
 
 ./uwsgi_start.sh
 
 service nginx restart
 
-# reset / restart flask app
+# reset / restart flask app after code change 
 
-cd /app/cta
+cd (where the source code located)/flask/cta
 
 touch touch-gui.ini

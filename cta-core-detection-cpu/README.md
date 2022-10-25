@@ -15,7 +15,7 @@ predict_config.py  - the configuriaotn file for job queue ( including the securi
 predict_worker.py  - define the main funciton to pick up the job queue and run prediction
 predict_celery.py  - an abstract fuction provide funciton defination only for submitting job or lauch a celery monitoring tools
 
-# to run the celery job queue service
+# Run the celery job queue service
 
 ### celery job queue service
 

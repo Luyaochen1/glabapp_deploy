@@ -1,4 +1,4 @@
-# Steps to implement a redis-celery-flask job queue system
+# Steps to step a redis-celery-flask job queue system
 
 This is a step-by-step guide of implementing a python job queue with redis, celery, and Flask ( using a CTA core detection program by Giancardo Lab ). 
 
@@ -12,17 +12,20 @@ A high-level diagram is like this:
 <img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram-1.JPG">
 </picture>   
 
-
 There are three Docker containers to build:
 
 ### Redis :
 
 Redis is an in-memory data structure store. In our cases, it acts as a job queue database: the Flask application will create a task and put it into the Redis job queue. And then, the Celery application will pick up the job from the job queue and call a predefined program to run the job.
 
+Both Celery and Flask need a security key to access it.
 
 ### Flask : 
 
-A python flask application to provide front-end web application. It contains the blow functions
+A python flask application to provide front-end web application. The web GUI service for user to upload a file to process: a job will be created and insert to Redis database. 
+
+It contains the blow functions,
+
 - A GUI (Nginx+flask) for the user to upload those files to be processed
 - Generate an session ID and create an input folder with this session ID 
 - save uploaded files to the input folder  
@@ -32,7 +35,10 @@ A python flask application to provide front-end web application. It contains the
 
 ### Celery : 
 
-A python celery application to provide the backend function to process the request. It contains the blow functions
+The backend service who pick up the job from the queue and execute it with a predfined funciton
+
+It contains the blow functions,
+
 - Pickup the job and get the job parameters (input folder and email address) 
 - Get files to be processed from the input folder 
 - Call the core function to process the input files

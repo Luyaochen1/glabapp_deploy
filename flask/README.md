@@ -1,6 +1,6 @@
 Please see setup instruciont aobut installing the Flask service
 
-# Mange the service on Flask
+# Mange the services on Flask
 
 Nginx - a web serice to pick up the user request for static web contents and recirect dynamic request and APIs to Flask
 Flask - a Python applicaiotn server to handle the dynamic web requests or APIs

@@ -24,6 +24,7 @@ celery  -A predict_worker.client worker  -D --loglevel=INFO --concurrency=2
 ```
 
 Here,
+
 Following -A is the function name - the function decorated by @client.task in  predict_worker.py 
 "worker" -  the celery queue name
 -D  - make the celery as a service
@@ -37,7 +38,9 @@ nohup flower -A predict_celery.client flower --port=5555 &
 ```
 
 Here,
+
 Following -A is the function name - the function decorated by @client.task in  predict_celery.py 
+
 
 
 

@@ -246,13 +246,13 @@ Now, CTA Detection GUI can be accessed by URL http://129.106.31.204:7605/cta/ ; 
 
 ## Coding instruction 
 
-Please refer to each program for the coding instructions 
+Please refer to the comments of each program for the coding instructions 
 
 There is just a list of related programs and highlights
 
 ### Celery server 
 
-#### /cta-core-detection-cpu/predict_worker.py 
+#### /glabapp_deploy/cta-core-detection-cpu/predict_worker.py 
 
 predict_worker.py  defines the core function process_images(session_id,email)  to:
 - decide working folder as base_folder + session_id
@@ -261,11 +261,11 @@ predict_worker.py  defines the core function process_images(session_id,email)  t
 
 process_images(session_id,email) has a function decorator @client.task. When starting the celery service, "-A predict_worker.client" parameter refers to the   @client.task function of predict_worker.py to process the job queue.  
 
-#### /cta-core-detection-cpu/predict_celery.py
+#### /glabapp_deploy/cta-core-detection-cpu/predict_celery.py
 
 predict_celery.py is an abstract function that runs the celery monitor service. It has the same function definition, but actually, it does nothing. Having this abstract function is to avoid the system do something when loading the monitor program.
 
-#### /cta-core-detection-cpu/predict_config.py
+#### /glabapp_deploy/cta-core-detection-cpu/predict_config.py
 
 This is the configuration file we discussed above to hold the radis server IP address, port, and security key.
 
@@ -287,5 +287,6 @@ predict_worker.py is an abstract function. Having this abstract function here is
 #### /glabapp_deploy/flask/predict_config.py
 
 This is the configuration file we discussed above to hold the radis server IP address, port, and security key: it shall be the same as the one on the celery server.
+
 
 

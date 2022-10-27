@@ -261,7 +261,7 @@ There is just a list of related programs and highlight their functions.
 
 ### Celery server 
 
-#### /glabapp_deploy/cta-core-detection-cpu/predict_worker.py 
+#### [/glabapp_deploy/cta-core-detection-cpu/predict_worker.py] ([https://pages.github.com/](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_worker.py)
 
 predict_worker.py  defines the core function process_images(session_id,email)  to:
 - decide working folder as base_folder + session_id

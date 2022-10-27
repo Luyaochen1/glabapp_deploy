@@ -11,11 +11,11 @@ exampleData directory contains examples for
 
 # Additional Files to run CTA  detection as a celery job queue
 
-[predict_config.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_config.py): the configuriaotn file for job queue ( including the security key to redis server)
+[predict_config.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_config.py): The configuriaotn file for job queue ( including the security key to redis server) and email body.
 
-predict_worker.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_worker.py)  - define the main funciton to pick up the job queue and run prediction
+[predict_worker.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_worker.py)  - Defines the main funciton to pick up the job queue and run prediction
 
-predict_celery.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_celery.py)  - an abstract fuction provide funciton defination only for submitting job or lauch a celery monitoring tools
+[predict_celery.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_celery.py)  - An abstract fuction provide funciton defination only for submitting job or lauch a celery monitoring tools
 
 # Run the celery job queue service
 

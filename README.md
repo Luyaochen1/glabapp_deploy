@@ -77,8 +77,7 @@ The Redis will use port 7379 for its database access. This port is not accessibl
 
 Also, if you run these containers on a server, we assume the firewall will allow the user to access port 7605 and 7606 we assigned. Please check with IT for the firewall rules. Also, you must know the server IP address for the user to access the web pages.
 
-For our example, the web application can be accessed by http://<server IP address>:7605/cta/ 
-
+In our example, the docker server IP address is 129.106.31.204, and the web application can be accessed by http://129.106.31.204:7605/cta/ 
 
 If you try it on your own machine (windows or Mac laptop or PC), you can replace the server IP address with localhost. Then, the web application can be accessed by http://localhost:7605/cta/ 
 
@@ -88,11 +87,11 @@ If you try it on your own machine (windows or Mac laptop or PC), you can replace
 ### clone source code from Github
 
 ```
-cd  ~  # any folder the user has the full access
+cd  <your working folder>  # any folder the user has the full access
 git clone https://github.com/Luyaochen1/glabapp_deploy.git
 ```
 
-## create the redis container
+## create the redis database server container
 
 Run the below command to create the redis container
 ```
@@ -113,15 +112,15 @@ In our example, we will use 172.17.0.7 as the internal IP address of the Redis s
 
 
  
-## Create the Celery container  
+## Create the Celery job server container  
 
 Run the below command to create the celery container. The container is built based on a python 3.8.15 image.
 ```
-cd   (your_working folder)
+cd   <your working folder>
 sudo docker run -it -d -p7606:5555 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_celery_test  python:3.8.15 bash
 ```
 
-and run the below command to enter the celery container
+and run the below command to enter the Celery container
 
 ```
 sudo docker exec -it glabapps_celery_test bash
@@ -145,7 +144,7 @@ pip install -r celery_req.txt
 
 ```
 
-Now, we can try to run the original CTA detection program
+Now, we can try to run the original CTA detection program ot make sure the required packages are installed.
 
 ```
 python run.py
@@ -159,7 +158,7 @@ avg grad 1 tf.Tensor(-2.9693632e-05, shape=(), dtype=float32)
 root@92a9aa239f8e:/glabapp_deploy/cta-core-detection-cpu#
 ```
 
-To start the celery service, we need to check the configuration file and ensure the redis address point to the IP address of the redis container. And the same time, update the base URL of the flask server with the actual docker server IP address. 
+To start the celery job service, we need to check the configuration file and ensure the redis address is pointed to the IP address of the redis container. And the same time, update the base URL of the flask server with the actual server IP address( you can use localhost if you test it from a local PC/MAC). 
 
 Also, to ensure security, change the SECRET_KEY if required. 
 
@@ -174,30 +173,29 @@ SITE_URL = 'http://129.106.31.204:7605'
 EMAIL_SENDER  = 'admin@cta.uth.tmc.edu'
 ```
 
-The next is to start the celery server and monitor
+The next step is to start the celery server job service and monitor service
 
 ```
-# start a celery server
+# start a celery job service
 celery  -A predict_worker.client worker  -D --loglevel=INFO --concurrency=2
 
-# start a job monitor  
+# start a job monitor service
 nohup flower -A predict_celery.client flower --port=5555 &
 
 # exist the celery docker and go to the next step
 exit
 ```
 
-by entering the URL http://129.106.31.204:7606 , we can access the celery monitor tool.
+by entering the URL http://129.106.31.204:7606  (repalce 129.106.31.204 with your server IP or localhost if run locally), we can access the celery monitor tool. 
 
-We will test the celery after creating the flask container
+We will test the celery job queue function after creating the flask web server container
 
 
-
-## Create the Flask container  
+## Create the Flask web server container  
 
 Run the below command to create the flask container. The container is built based on a python 3.8.15 image.
 ```
-cd   (your_working folder)
+cd   <your working folder>
 sudo docker run -it -d -p7605:8080 -v$(pwd)/glabapp_deploy:/glabapp_deploy --name=glabapps_flask_test  python:3.8.15 bash
 
 ```
@@ -212,9 +210,6 @@ root@xxxxxxxx:/#
 and then, run the below Linux commands to install the requirements
 
 ```
-# enter the newly created flask container
-sudo docker exec -it glabapps_flask_test bash
-
 #  install an editor and nginx program
 apt update -y && apt install nano nginx -y
 
@@ -252,7 +247,9 @@ nginx -t
 service nginx start 
 
 ``` 
-Now, CTA Detection GUI can be accessed by URL http://129.106.31.204:7605/cta/ ; we can also go back to the celery monitor tool (http://129.106.31.204:7606) to check the job status.
+Now, CTA Detection application can be accessed by URL http://129.106.31.204:7605/cta/    (repalce 129.106.31.204 with your server IP or localhost if run locally) ;  we can also go back to the celery monitor tool (http://129.106.31.204:7606) to check the job status.
+
+Try to upload a image file to test the application. 
 
 
 
@@ -260,7 +257,7 @@ Now, CTA Detection GUI can be accessed by URL http://129.106.31.204:7605/cta/ ; 
 
 Please refer to the comments of each program for the coding instructions 
 
-There is just a list of related programs and highlights
+There is just a list of related programs and highlight their functions. 
 
 ### Celery server 
 

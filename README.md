@@ -9,7 +9,7 @@ The implementation is Docker-based. This document will cover the step-by-step in
 A high-level diagram is like this:
 
 <picture>
-<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram-1.JPG">
+<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/High-level-diagram-2.JPG">
 </picture>   
 
 There are three Docker containers to build:

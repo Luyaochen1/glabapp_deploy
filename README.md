@@ -14,15 +14,15 @@ A high-level diagram is like this:
 
 There are three Docker containers to build:
 
-### Redis :
+### Redis Database Server:
 
 Redis is an in-memory data structure store. In our cases, it acts as a job queue database: the Flask application will create a task and put it into the Redis job queue. And then, the Celery application will pick up the job from the job queue and call a predefined program to run the job.
 
 Both Celery and Flask need a security key to access it.
 
-### Flask : 
+### Flask Web Server : 
 
-A python flask application to provide front-end web application. The web GUI service for user to upload a file to process: a job will be created and insert to Redis database. 
+A python flask application server to provide front-end web application. The web GUI service for user to upload a file to process: a job will be created and insert to Redis database. 
 
 It contains the blow functions,
 
@@ -33,9 +33,9 @@ It contains the blow functions,
 - check the status of job processing and report an error message
 - Generate the papaya web display for the output query
 
-### Celery : 
+### Celery Job Server : 
 
-The backend service who pick up the job from the queue and execute it with a predfined funciton
+A Celery backend service who pick up the job from the queue and execute it with a predfine funciton ( the image process algothium) 
 
 It contains the blow functions,
 
@@ -69,14 +69,18 @@ In the rest part of this documentation, we will assume that the user already has
 
 This document assums the three containers we listed above is running on the same docker network and IP address was assigned dynamically.  For a production deployment, the fixed internal IP address of redis is recommended. Please refer to the Docker network instruction about how to set up the fixed IP address of the container.
 
-The Flask will use port 8080 for its Nginx application. In the sample, the port will be mapped to port 7605 of the server.
+The Flask web server will use port 8080 for its Nginx application. In this example, the port will be mapped to port 7605 of the server.
 
-The Celery will use port 5555 for its monitoring program. In the sample, the port will be mapped to port 7606 of the server.
+The Celery will use port 5555 for its monitoring program. In this example, the port will be mapped to port 7606 of the server.
 
 The Redis will use port 7379 for its database access. This port is not accessible from external.
 
-Also, we assume the firewall will allow the user to access port 7605 and 7606 we assigned. Please check with IT for the firewall rules.
+Also, if you run these containers on a server, we assume the firewall will allow the user to access port 7605 and 7606 we assigned. Please check with IT for the firewall rules. Also, you must know the server IP address for the user to access the web pages.
 
+For our example, the web application can be accessed by http://<server IP address>:7605/cta/ 
+
+
+If you try it on your own machine (windows or Mac laptop or PC), you can replace the server IP address with localhost. Then, the web application can be accessed by http://localhost:7605/cta/ 
 
 
 ## Create Docker containers
@@ -105,7 +109,7 @@ sudo docker inspect glabapps_redis_test
 ```
 and search for "IPAddress" in the output.
 
-In our sample, we will use 172.17.0.7 as the internal IP address of the Redis server.
+In our example, we will use 172.17.0.7 as the internal IP address of the Redis server.
 
 
  

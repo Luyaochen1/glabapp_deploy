@@ -291,13 +291,25 @@ from predict_worker import process_images
 r = process_images.delay(session_id,email_address)
 ```
 
-#### /glabapp_deploy/flask/predict_worker.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_worker.py)
+
+#### [/glabapp_deploy/flask/predict_worker.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_worker.py)
 
 predict_worker.py is an abstract function. Having this abstract function here is to simplify the coding: the flask program just need to know the interface to the job processor, not the function itself. 
 
-#### /glabapp_deploy/flask/predict_config.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_config.py)
+#### [/glabapp_deploy/flask/predict_config.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_config.py)
 
 This is the configuration file we discussed above to hold the radis server IP address, port, and security key: it shall be the same as the one on the celery server.
 
+#### [/glabapp_deploy/flask/cta/templates/upload.html](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/templates/upload.html)
 
+This is the actual web page template when you enter the http://<server IP address>:<server port>/cta/.
+
+This web page template has many other functions not discussed in this document. Here is just a list for reference,
+- Styles 
+- Cookie for showing privacy alert
+- Cookie to limit the number of uploads a day
+- Javascript to show the upload status
+- Javascript to show the job process upload status
+- Cookie to limit that only the user who submits the job can download the result
+ 
 

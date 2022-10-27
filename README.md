@@ -2,7 +2,7 @@
 
 This is a step-by-step guide of implementing a python based job queue with redis, celery, and flask ( with a CTA core detection algothium by Giancardo Lab ). 
 
-## introduction
+## Introduction
 
 The implementation is Docker-based. This document will cover the step-by-step installation for Celery job server and Flask web server, while the REDIS database server comes from a prebuilt docker image.
 

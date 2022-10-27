@@ -305,7 +305,7 @@ This is the configuration file we discussed above to hold the radis server IP ad
 
 #### [/glabapp_deploy/flask/cta/templates/upload.html](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/templates/upload.html)
 
-This is the actual web page template when you enter the http:// server IP address : server port /cta/.
+This is the actual web page template when you enter the http://server_IP_address:server_port/cta/.
 
 This web page template has many other functions not discussed in this document. Here is just a list for reference,
 - Styles 

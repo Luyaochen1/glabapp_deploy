@@ -1,4 +1,4 @@
-# Steps to step a redis-celery-flask job queue system
+# Steps to steo a python based job queue system with redis, celery and flask
 
 This is a step-by-step guide of implementing a python based job queue with redis, celery, and flask ( with a CTA core detection algothium by Giancardo Lab ). 
 

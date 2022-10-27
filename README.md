@@ -1,10 +1,10 @@
 # Steps to step a redis-celery-flask job queue system
 
-This is a step-by-step guide of implementing a python job queue with redis, celery, and Flask ( using a CTA core detection program by Giancardo Lab ). 
+This is a step-by-step guide of implementing a python based job queue with redis, celery, and flask ( with a CTA core detection algothium by Giancardo Lab ). 
 
 ## introduction
 
-The implementation is Docker-based. This document will cover the step-by-step installation for Celery and Flask, while the REDIS comes from a prebuilt docker image.
+The implementation is Docker-based. This document will cover the step-by-step installation for Celery job server and Flask web server, while the REDIS database server comes from a prebuilt docker image.
 
 A high-level diagram is like this:
 
@@ -45,6 +45,14 @@ It contains the blow functions,
 - Save output to the output folder
 - Send an email when job finishes
 - Allow user to check job the status 
+
+
+The function flow is described as 
+
+<picture>
+<img alt="high-level diagram" src="https://github.com/Luyaochen1/glabapp_deploy/blob/main/Flow-Flask-Celery-Redis.png">
+</picture>   
+
 
 
 ## Prerequisite 

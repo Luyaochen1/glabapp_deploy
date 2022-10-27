@@ -44,7 +44,8 @@ nohup flower -A predict_celery.client flower --port=5555 &
 
 Here,
 
-Following -A is the function name - the function decorated by @client.task in  predict_celery.py 
+-A predict_celery.client: the function decorated by @client.task in  predict_celery.py 
+ 
 
 
 

@@ -259,29 +259,31 @@ Please refer to the comments of each program for the coding instructions
 
 There is just a list of related programs and highlight their functions. 
 
-### Celery server 
+### Celery job server 
 
 #### [/glabapp_deploy/cta-core-detection-cpu/predict_worker.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_worker.py)
 
-predict_worker.py  defines the core function process_images(session_id,email)  to:
+predict_worker.py contains the core function process_images(session_id,email)  to:
+
 - decide working folder as base_folder + session_id
 - for each file in the working folder, run the prediction program
 - send the email after the job done
 
-process_images(session_id,email) has a function decorator @client.task. When starting the celery service, "-A predict_worker.client" parameter refers to the   @client.task function of predict_worker.py to process the job queue.  
+process_images(session_id,email) has a function decorator @client.task. 
+When starting the celery service, "-A predict_worker.client" parameter goes to the "@client.task" function of predict_worker.py to process the job queue request. 
 
-#### /glabapp_deploy/cta-core-detection-cpu/predict_celery.py
+#### [/glabapp_deploy/cta-core-detection-cpu/predict_celery.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_celery.py)
 
 predict_celery.py is an abstract function that runs the celery monitor service. It has the same function definition, but actually, it does nothing. Having this abstract function is to avoid the system do something when loading the monitor program.
 
-#### /glabapp_deploy/cta-core-detection-cpu/predict_config.py
+#### [/glabapp_deploy/cta-core-detection-cpu/predict_config.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/cta-core-detection-cpu/predict_config.py)
 
-This is the configuration file we discussed above to hold the radis server IP address, port, and security key.
+This is the configuration file we discussed above to hold the radis server IP address, port, and security key, and the urls for generating the email body.
 
 
-### Flask server 
+### Flask wweb server 
 
-#### /glabapp_deploy/flask/cta/main.py
+#### [/glabapp_deploy/flask/cta/main.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/main.py)
 This is the flask program to provide the GUI and API service. it uses the below code to insert a job into redis job queue.
 ```
 from predict_worker import process_images
@@ -289,11 +291,11 @@ from predict_worker import process_images
 r = process_images.delay(session_id,email_address)
 ```
 
-#### /glabapp_deploy/flask/predict_worker.py
+#### /glabapp_deploy/flask/predict_worker.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_worker.py)
 
 predict_worker.py is an abstract function. Having this abstract function here is to simplify the coding: the flask program just need to know the interface to the job processor, not the function itself. 
 
-#### /glabapp_deploy/flask/predict_config.py
+#### /glabapp_deploy/flask/predict_config.py(https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_config.py)
 
 This is the configuration file we discussed above to hold the radis server IP address, port, and security key: it shall be the same as the one on the celery server.
 

@@ -235,7 +235,7 @@ mkdir /var/log/uwsgi
 # modfify the IP address configurations
 nano /glabapp_deploy/flask/cta/predict_config.py
 ```
-Here, the IP addresses in /glabapp_deploy/flask/cta/predict_config.py must follow the Redis server IP address we mentioned earlier in this document.
+Here, the IP addresses in [/glabapp_deploy/flask/predict_config.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/predict_config.py) must follow the Redis server IP address we mentioned earlier in this document.
 
 
 And then, we can start the services required for Flask web server. 
@@ -290,7 +290,7 @@ predict_celery.py is an abstract function that runs the celery monitor service. 
 This is the configuration file we discussed above to hold the radis server IP address, port, and security key, and the urls for generating the email body.
 
 
-### Flask wweb server 
+### Flask web server 
 
 #### [/glabapp_deploy/flask/cta/main.py](https://github.com/Luyaochen1/glabapp_deploy/blob/main/flask/cta/main.py)
 This is the flask program to provide the GUI and API service. it uses the below code to insert a job into redis job queue.

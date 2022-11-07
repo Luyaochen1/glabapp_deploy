@@ -234,7 +234,13 @@ mkdir /var/log/uwsgi
 
 # modfify the IP address configurations
 nano /glabapp_deploy/flask/cta/predict_config.py
+```
+Here, the IP addresses in /glabapp_deploy/flask/cta/predict_config.py must follow the Redis server IP address we mentioned earlier in this document.
 
+
+And then, we can start the services required for Flask web server. 
+
+```
 #start the flask service
 ./uwsgi_start.sh 
 
